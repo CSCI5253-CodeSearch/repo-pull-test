@@ -1,0 +1,15 @@
+from graphene import ObjectType,String,Schema
+
+class Query(ObjectType):
+    test = String(name=String(default_value="hi"))
+    goodbye = String()
+    
+    def resolve_test(self,info,name):
+        return f'hello {name}'
+    def resolve_goodbye(self,info):
+        return 'See ya!'
+schema = Schema(query=Query)
+
+query_string = '{goodbye}'
+result = schema.execute(query_string)
+print(result.data)
